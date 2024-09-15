@@ -8,10 +8,10 @@ from bots.ip_tv_text import *
 router2 = Router()
 
 
-@router2.message(Command("ktv_problems"))
+@router2.message(Command("ktv"))
 async def ktv_prob(message: types.Message):
     buttons = [
-        InlineKeyboardButton(text="Проблемы с тв ", callback_data="kt_problems")
+        InlineKeyboardButton(text="Проблемы с ктв ", callback_data="kt_problems")
     ]
     keyboard = create_keyboard(buttons)
     await message.answer("Выберите действие:", reply_markup=keyboard)
@@ -27,8 +27,8 @@ async def kt_problems(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(
-        "1) Проверяем статус клиента в биллинге.\n2) ПРОВЕРЯЕМ ЧАТ АВАРИИ.",
-        reply_markup=keyboard
+        "<b>1) Проверяем статус клиента в биллинге.\n2) ПРОВЕРЯЕМ ЧАТ АВАРИИ.</b>",
+        reply_markup=keyboard,parse_mode="HTML"
     )
     await callback.answer()
 
@@ -46,9 +46,9 @@ async def no_issues_ktv(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(
-        "Смотрим статус абонента,"
+        "<b>Смотрим статус абонента,"
         " нет ли блокировок по недостатку"
-        " денежных средств:", reply_markup=keyboard)
+        " денежных средств:</b>", reply_markup=keyboard,parse_mode="HTML")
     await callback.answer()
 
 
@@ -59,7 +59,7 @@ async def k_tv_doesnt_work(callback: types.CallbackQuery):
         InlineKeyboardButton(text="Назад", callback_data="go_back"),
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{k_tv_doesnt_wor}", reply_markup=keyboard)
+    await callback.message.edit_text(f"{k_tv_doesnt_wor}", reply_markup=keyboard,parse_mode="HTML")
     await callback.answer()
 
 
@@ -70,5 +70,5 @@ async def k_tv_disconect(callback: types.CallbackQuery):
         InlineKeyboardButton(text="Назад", callback_data="go_back"),
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{k_tv_disconec}", reply_markup=keyboard)
+    await callback.message.edit_text(f"{k_tv_disconec}", reply_markup=keyboard,parse_mode="HTML")
     await callback.answer()

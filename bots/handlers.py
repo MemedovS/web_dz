@@ -30,7 +30,7 @@ async def go_back(callback: types.CallbackQuery):
 async def intern_prob(message: types.Message):
     save_step(message.from_user.id, "start")
     buttons = [
-        InlineKeyboardButton(text="Проблемы с интернетом", callback_data="internet_problems"),
+        InlineKeyboardButton(text="Проблемы с интернетом", callback_data="internet"),
         InlineKeyboardButton(text="iptv_problems", callback_data="iptv_problems")
 
     ]
@@ -39,13 +39,13 @@ async def intern_prob(message: types.Message):
 
 
 # Обработчик команды /internet_problems
-@router.message(Command("internet_problems"))
+@router.message(Command("internet"))
 async def internet_prob(message: types.Message):
     buttons = [
-        InlineKeyboardButton(text="Проблемы с интернетом", callback_data="internet_problems")
+        InlineKeyboardButton(text="Проблемы с интернетом<", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await message.answer("Выберите действие:", reply_markup=keyboard)
+    await message.answer("<b><i>Выберите действие:</i></b>", reply_markup=keyboard,parse_mode="HTML")
 
 
 # Обработчик для "Проблемы с интернетом"
@@ -60,8 +60,8 @@ async def internet_problems(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(
-        "1) Проверяем статус клиента в биллинге.\n2) ПРОВЕРЯЕМ ЧАТ АВАРИИ.",
-        reply_markup=keyboard
+        "<b><i>1. Проверяем статус клиента в биллинге.\n2. ПРОВЕРЯЕМ ЧАТ АВАРИИ.</i></b>",
+        reply_markup=keyboard,parse_mode="HTML"
     )
     await callback.answer()
 
@@ -77,8 +77,8 @@ async def issue_exists(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(
-        "Приносим извинения за доставленные неудобства. Пожалуйста, подождите решения проблемы.",
-        reply_markup=keyboard
+        "<b><i>Приносим извинения за доставленные неудобства. Пожалуйста, подождите решения проблемы.</i></b>",
+        reply_markup=keyboard,parse_mode="HTML"
     )
     await callback.answer()
 
@@ -95,7 +95,7 @@ async def no_issues(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text("Проводим диагностику:", reply_markup=keyboard)
+    await callback.message.edit_text("<b><i>Проводим диагностику:</i></b>", reply_markup=keyboard,parse_mode="HTML")
     await callback.answer()
 
 
@@ -109,7 +109,7 @@ async def no_internet(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text("Проверяем наличие активной сессии:", reply_markup=keyboard)
+    await callback.message.edit_text("<b><i>Проверяем наличие активной сессии:</i></b>", reply_markup=keyboard,parse_mode="HTML")
     await callback.answer()
 
 
@@ -124,7 +124,7 @@ async def pppoe_diagnosis(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text("Проверяем наличие активной PPPoE сессии...", reply_markup=keyboard)
+    await callback.message.edit_text("<b><i>Проверяем наличие активной PPPoE сессии.</i></b>", reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -139,7 +139,7 @@ async def session_exists(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f'{sess_exists}', reply_markup=keyboard)
+    await callback.message.edit_text(f'{sess_exists}', reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -172,7 +172,7 @@ async def errors_direct_diagnosis(callback: types.CallbackQuery):
 
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{Diag_of_errors_direct_con}",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -186,7 +186,7 @@ async def errors_651_678_815(callback: types.CallbackQuery):
     ]
 
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{errors_815}{response_to_client}", reply_markup=keyboard)
+    await callback.message.edit_text(f"{errors_815}{response_to_client}", reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -199,7 +199,7 @@ async def errors_691_629_619_718(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{errors_718}{response_to_client}", reply_markup=keyboard)
+    await callback.message.edit_text(f"{errors_718}{response_to_client}", reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -212,7 +212,7 @@ async def errors_769_814(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{errors_814}{response_to_client}", reply_markup=keyboard)
+    await callback.message.edit_text(f"{errors_814}{response_to_client}", reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -229,7 +229,7 @@ async def session_exists_router_connection(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(internet_prob_router_act_sesion, reply_markup=keyboard)
+    await callback.message.edit_text(f"{internet_prob_router_act_sesion}", reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -242,7 +242,7 @@ async def on_all_devices(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{sesion_ex_on_all_devices}{response_to_client}", reply_markup=keyboard)
+    await callback.message.edit_text(f"{sesion_ex_on_all_devices}{response_to_client}", reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -257,7 +257,7 @@ async def problem_on_phone_tablet(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{sesion_ex_problem_on_phone_tablet}", reply_markup=keyboard)
+    await callback.message.edit_text(f"{sesion_ex_problem_on_phone_tablet}", reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -272,7 +272,7 @@ async def not_work_on_another_device(callback: types.CallbackQuery):
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(
         f"{sesion_ex_problem_on_phone_tablet_not_work_on_another_device}{response_to_client}",
-        reply_markup=keyboard)
+        reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -287,8 +287,8 @@ async def the_problem_is_only_on_ps(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text("Проблема только на ПКУ точняем подключаются через вай фай или пачкордом ?",
-                                     reply_markup=keyboard)
+    await callback.message.edit_text("<b><i>Проблема только на ПКУ точняем подключаются через вай фай или пачкордом ?</i></b>",
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -303,7 +303,7 @@ async def internet_problems_patch_cord(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{sesion_ex_internet_problems_patch_cord}",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -317,7 +317,7 @@ async def application_template_patchcord(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{sesion_ex_application_template_patchcord}{response_to_client}",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -332,7 +332,7 @@ async def internet_problems_wi_fi(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{sesion_ex_internet_problems_wi_fi}",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -346,7 +346,7 @@ async def application_template_wi_fi(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{sesion_ex_application_template_wi_fi}{response_to_client}",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -362,10 +362,10 @@ async def session_no(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(
-        "Сессии нет \n Уточняем у клиента Как вы подключаетесь?\n "
-        "напрямую от кабеля или через вайфай роутер?",
-        reply_markup=keyboard)
+    await callback.message.edit_text("<b><i>Сессии нет:"
+                                     "Уточняем у клиента Как вы подключаетесь?"
+                                     "напрямую от кабеля или через вайфай роутер?</i></b>",
+        reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -379,7 +379,7 @@ async def no_session_checking_the_router(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{no_session_checking_router}\n{response_to_client}",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -395,8 +395,8 @@ async def slow_internet(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text("Уточняем у клиента: Как вы подключаетесь, напрямую или через роутер?",
-                                     reply_markup=keyboard)
+    await callback.message.edit_text("<b><i>Уточняем у клиента: Как вы подключаетесь, напрямую или через роутер?</i></b>",
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -411,7 +411,7 @@ async def direct_connection_speed(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f'{direct_connec_speed}', reply_markup=keyboard)
+    await callback.message.edit_text(f'{direct_connec_speed}', reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -440,9 +440,8 @@ async def client_agrees_speed_test(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(
-        "Смотрим результаты замеров. Какова скорость?\n"
-        "Скорость соответствует вашему тарифу?",
-        reply_markup=keyboard)
+        "<b><i>Смотрим результаты замеров. Какова скорость?\nСкорость соответствует вашему тарифу?</i></b>",
+        reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -456,7 +455,7 @@ async def speed_matches_tariff(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f'{speed_matches_tarif}', reply_markup=keyboard)
+    await callback.message.edit_text(f'{speed_matches_tarif}', reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -471,7 +470,7 @@ async def client_insists_on_request(callback: types.CallbackQuery):
 
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{client_insists_on_reques}{response_to_client}",
-                                     reply_markup=keyboard
+                                     reply_markup=keyboard,parse_mode='HTML'
                                      )
     await callback.answer()
 
@@ -486,7 +485,7 @@ async def speed_does_not_match_tariff(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{speed_does_not_match_tarif}{response_to_client}",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -501,7 +500,7 @@ async def router_connection_speed(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f'{router_connection_spe}', reply_markup=keyboard
+    await callback.message.edit_text(f'{router_connection_spe}', reply_markup=keyboard,parse_mode='HTML'
                                      )
     await callback.answer()
 
@@ -518,7 +517,7 @@ async def agree_patch_cord(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f'{agree_patch_cor}',
-                                     reply_markup=keyboard
+                                     reply_markup=keyboard,parse_mode='HTML'
                                      )
     await callback.answer()
 
@@ -535,12 +534,11 @@ async def client_agrees_speed_test_router(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(
-        "1) Заходим с клиентом на сайт спид тест и делаем замеры скорости\n\n"
-        "2) Смотрим какая у клиента скорость по тарифу, если отклонение СКОЛЬКО% ?"
-        " то Скорость соответствует тарифу , если более то нет.",
+    await callback.message.edit_text("<b><i>1. Заходим с клиентом на сайт спид тест и делаем замеры скорости\n\n2."
+                                     " Смотрим какая у клиента скорость по тарифу, если отклонение СКОЛЬКО% ?"
+                                     "то Скорость соответствует тарифу , если более то нет.</i></b>",
 
-        reply_markup=keyboard
+        reply_markup=keyboard,parse_mode='HTML'
     )
     await callback.answer()
 
@@ -555,10 +553,8 @@ async def speed_matches_tariff_router(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(
-        "Скорость соответствует заявленной. Вероятно, проблема в вашем компьютере.\n"
-        "Если клиент настаивает на заявке, её можно оформить.",
-        reply_markup=keyboard
+    await callback.message.edit_text("<b><i>Скорость соответствует заявленной. Вероятно, проблема в вашем компьютере.\n"
+                                    "Если клиент настаивает на заявке, её можно оформить.</i></b>",reply_markup=keyboard,parse_mode='HTML'
     )
     await callback.answer()
 
@@ -572,13 +568,13 @@ async def client_insists_on_request_router(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(
-        f"Заявка создана:"
-        f" Низкая скорость интернета, клиент подключается через роутер,"
-        f" замеры выполнены через патч-корд. "
-        f"Скорость соответствует тарифу, но клиент настаивает на заявке.(если клиент конфликтный то указываем это )"
-        f"{response_to_client}",
-        reply_markup=keyboard
+    await callback.message.edit_text(f"<b><i>Заявка создана:"
+                                     f"Низкая скорость интернета, клиент подключается через роуте"
+                                     f" замеры выполнены через патч-корд."
+                                     f"Скорость соответствует тарифу, но клиент настаивает на заявке\n"
+                                     f"(если клиент конфликтный то указываем это )</i></b>\n"
+                                     f"{response_to_client}",
+        reply_markup=keyboard,parse_mode='HTML'
     )
     await callback.answer()
 
@@ -592,18 +588,9 @@ async def speed_does_not_match_tariff_router(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(
-        f'Скорость не соответствует тарифу.'
-        f'Оставляем заявку для решения проблемы.\n'
-        f'Пожалуйста, назовите ваш контактный номер телефона.\n\n'
-        f'*Заводим заявку:*\n'
-        f'Низкая скорость интернета\n'
-        f'Подключается через роутер\n'
-        f'Напрямую подключиться возможности нет/ клиент отказался\n'
-        f'Замеры делали с телефона / планшета\n'
-        f'Сделали замеры ping __ dow__ upl__\n'
-        f"{response_to_client}",
-        reply_markup=keyboard
+    await callback.message.edit_text(f"{
+    speed_does_not_match_tariff_rout}{response_to_client}",
+        reply_markup=keyboard,parse_mode='HTML'
     )
     await callback.answer()
 
@@ -618,13 +605,8 @@ async def client_refuses_speed_test(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
 
-    await callback.message.edit_text(
-        f"Если клиент конфликтует и отказывается от замеров, заводим заявку с соответствующим комментарием:\n"
-        f"Заводим заявку:\n"
-        f"Низкая скорость интернета, подключение через роутер.\n"
-        f" Клиент отказывается от диагностики и настаивает на заявке.(если клиент конфликтный то указываем это )\n"
-        f"{response_to_client}",  # Merge into the f-string
-        reply_markup=keyboard
+    await callback.message.edit_text(f"{client_refuses_speed_tes }{response_to_client}",  # Merge into the f-string
+        reply_markup=keyboard,parse_mode='HTML'
     )
 
     await callback.answer()
@@ -647,7 +629,7 @@ async def connection_issue(callback: types.CallbackQuery):
     await callback.message.edit_text("Интернет разрывы соединенияУточняем у клиента: "
                                      "Скажите пожалуйста как вы подключаетесь "
                                      "напрямую или через роутер?.",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -661,7 +643,7 @@ async def connect_issue_direct_connec(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{connection_issue_direct_connection}\n {response_to_client}",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -677,7 +659,7 @@ async def connec_issue_router_connection(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text("Уточняем у клиента на всех ли устройствах отслеживаются разрывы соединения ?",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -692,7 +674,7 @@ async def connec_issue_router_on_all_devices(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{connect_issue_router_on_all_devices}", reply_markup=keyboard)
+    await callback.message.edit_text(f"{connect_issue_router_on_all_devices}", reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -705,8 +687,8 @@ async def connec_issue_router_the_client_conflicts(callback: types.CallbackQuery
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{connec_issue_router_the_client_conflic}\n{response_to_client}",
-                                     reply_markup=keyboard)
+    await callback.message.edit_text(f"{connec_issue_router_the_client_conflic}{response_to_client}",
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -721,7 +703,7 @@ async def connect_issue_router_on_devic(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f"{conne_issue_router_on_devic}", reply_markup=keyboard)
+    await callback.message.edit_text(f"{conne_issue_router_on_devic}", reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -735,7 +717,7 @@ async def connecti_issue_router_on_device_client_conflicts(callback: types.Callb
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{connec_issue_router_the_client_conflic}\n{response_to_client}",
-                                     reply_markup=keyboard)
+                                     reply_markup=keyboard,parse_mode='HTML')
     await callback.answer()
 
 
@@ -771,6 +753,7 @@ STEP_HANDLERS = {
     "not_work_on_another_device": not_work_on_another_device,
     "the_problem_is_only_on_ps": the_problem_is_only_on_ps,
     "application_template_patchcord": application_template_patchcord,
+    "internet_problems_patch_cord": internet_problems_patch_cord,
     "internet_problems_wi_fi": internet_problems_wi_fi,
     "application_template_wi_fi": application_template_wi_fi,
     "session_no": session_no,
