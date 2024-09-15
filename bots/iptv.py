@@ -1,8 +1,10 @@
 from aiogram import Router, types
 from aiogram.filters import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from bots.handlers import *
+from bots.user_steps_manager import save_step
+from bots.user_steps_manager import create_keyboard
 from bots.ip_tv_text import *
+
 router1 = Router()
 
 
@@ -18,7 +20,8 @@ async def iptv_prob(message: types.Message):
     await message.answer("Выберите действие:", reply_markup=keyboard)
 
 @router1.callback_query(lambda c: c.data == "ipt_problems")
-async def internet_problems(callback: types.CallbackQuery):
+async def ipt_problems(callback: types.CallbackQuery):
+    save_step(callback.from_user.id, "ipt_problems")
     buttons = [
         InlineKeyboardButton(text="Есть авария", callback_data="issue_exists"),
         InlineKeyboardButton(text="Нет аварий", callback_data="no_issues_tv"),
@@ -68,3 +71,11 @@ async def ip_tv_slow_channels(callback: types.CallbackQuery):
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f"{ip_tv_slow_channel}", reply_markup=keyboard)
     await callback.answer()
+
+
+# STEP_HANDLERS = {
+#     "no_issues_tv":no_issues_tv,
+#     "ipt_problems": ipt_problems,  # Добавьте сюда все соответствующие шаги
+#     "ip_tv_doesnt_work": ip_tv_doesnt_work,
+#     # Добавляйте остальные шаги
+# }

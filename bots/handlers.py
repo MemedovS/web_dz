@@ -3,30 +3,11 @@ from aiogram.filters import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from bots.internet_problems_text import *
 from bots.internet_disconect import *
+from bots.user_steps_manager import save_step, get_previous_step, create_keyboard
+from bots.iptv import ipt_problems, no_issues_tv, ip_tv_doesnt_work
+from bots.ktv import kt_problems, no_issues_ktv, k_tv_doesnt_work, k_tv_disconect
 
 router = Router()
-
-# Словарь для хранения текущих и предыдущих шагов пользователей
-user_steps = {}
-
-
-# Функция для получения предыдущего шага
-def get_previous_step(user_id):
-    steps = user_steps.get(user_id, [])
-    if len(steps) > 1:
-        return steps[-2]  # Предыдущий шаг
-    return None
-
-
-# Функция для установки текущего шага
-def save_step(user_id, step):
-    if user_id not in user_steps:
-        user_steps[user_id] = []
-    user_steps[user_id].append(step)
-
-    # Если больше 10 шагов, убираем старые шаги
-    if len(user_steps[user_id]) > 10:
-        user_steps[user_id].pop(0)
 
 
 @router.callback_query(lambda c: c.data == "go_back")
@@ -42,13 +23,6 @@ async def go_back(callback: types.CallbackQuery):
             await callback.answer("Не удалось определить предыдущий шаг.")
     else:
         await callback.answer("Нет доступных шагов для возврата.")
-
-
-# Функция для создания клавиатуры
-def create_keyboard(buttons: list) -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(
-        inline_keyboard=[[button] for button in buttons]  # Каждая кнопка на отдельной строке
-    )
 
 
 # Обработчик команды /старт
@@ -527,8 +501,8 @@ async def router_connection_speed(callback: types.CallbackQuery):
         InlineKeyboardButton(text="На главную", callback_data="internet_problems")
     ]
     keyboard = create_keyboard(buttons)
-    await callback.message.edit_text(f'{router_connection_spe}',reply_markup=keyboard
-    )
+    await callback.message.edit_text(f'{router_connection_spe}', reply_markup=keyboard
+                                     )
     await callback.answer()
 
 
@@ -544,8 +518,8 @@ async def agree_patch_cord(callback: types.CallbackQuery):
     ]
     keyboard = create_keyboard(buttons)
     await callback.message.edit_text(f'{agree_patch_cor}',
-        reply_markup=keyboard
-    )
+                                     reply_markup=keyboard
+                                     )
     await callback.answer()
 
 
@@ -823,5 +797,12 @@ STEP_HANDLERS = {
     "connection_issue_router_on_devices": connect_issue_router_on_devic,
     "connection_issue_router_on_devices_client_conflicts": connecti_issue_router_on_device_client_conflicts,
     "connection_issue_er_connection": connect_issue_er_connect,
+    "no_issues_tv": no_issues_tv,
+    "ipt_problems": ipt_problems,  # Добавьте сюда все соответствующие шаги
+    "ip_tv_doesnt_work": ip_tv_doesnt_work,
+    "kt_problems": kt_problems,
+    "no_issues_ktv": no_issues_ktv,
+    "k_tv_doesnt_work": k_tv_doesnt_work,
+    "k_tv_disconect": k_tv_disconect
 
 }
